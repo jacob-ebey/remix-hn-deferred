@@ -1,0 +1,18 @@
+account_id = "574fdb1eae7e80782a805c4b92f6b626"
+name = "remix-hn-deferred"
+type = "javascript"
+workers_dev = true
+
+main = "build/index.js"
+
+compatibility_date = "2022-06-23"
+compatibility_flags = ["streams_enable_constructors"]
+
+[site]
+bucket = "./public"
+
+[build]
+command = "npm run build"
+
+[build.upload]
+format = "service-worker"
