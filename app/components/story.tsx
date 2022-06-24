@@ -15,7 +15,7 @@ const Story = (props: { story: StoryType }) => {
             <span className="host"> ({props.story.domain})</span>
           </>
         ) : (
-          <Link to={`/item/${props.story.id}`}>
+          <Link to={`/item/${props.story.id}`} prefetch="intent">
             {props.story.title}
           </Link>
         )}
@@ -24,19 +24,16 @@ const Story = (props: { story: StoryType }) => {
       <span className="meta">
         {props.story.type !== "job" ? (
           <>
-            by{" "}
-            <Link to={`/users/${props.story.user}`}>
-              {props.story.user}
-            </Link>{" "}
+            by <Link to={`/users/${props.story.user}`}>{props.story.user}</Link>{" "}
             {props.story.time_ago} |{" "}
-            <Link to={`/stories/${props.story.id}`}>
+            <Link to={`/stories/${props.story.id}`} prefetch="intent">
               {props.story.comments_count
                 ? `${props.story.comments_count} comments`
                 : "discuss"}
             </Link>
           </>
         ) : (
-          <Link to={`/stories/${props.story.id}`}>
+          <Link to={`/stories/${props.story.id}`} prefetch="intent">
             {props.story.time_ago}
           </Link>
         )}

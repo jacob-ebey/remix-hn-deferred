@@ -47,6 +47,7 @@ export default function Stories() {
             className="page-link"
             to={`/${type}?page=${page - 1}`}
             aria-label="Previous Page"
+            prefetch="intent"
           >
             {"<"} prev
           </Link>
@@ -61,6 +62,7 @@ export default function Stories() {
             className="page-link"
             to={`/${type}?page=${page + 1}`}
             aria-label="Next Page"
+            prefetch="intent"
           >
             more {">"}
           </Link>
