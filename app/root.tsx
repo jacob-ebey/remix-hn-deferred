@@ -4,7 +4,7 @@ import {
   LiveReload,
   Meta,
   Outlet,
-  // Scripts,
+  Scripts,
   ScrollRestoration,
   useCatch,
 } from "@remix-run/react";
@@ -104,7 +104,7 @@ function Document({
       <body>
         {children}
         <ScrollRestoration />
-        {/* <Scripts /> */}
+        <Scripts />
         {process.env.NODE_ENV === "development" && <LiveReload />}
       </body>
     </html>

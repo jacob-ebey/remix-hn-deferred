@@ -14,6 +14,7 @@
     "@remix-run/cloudflare": "0.0.0-experimental-708e229e",
     "@remix-run/cloudflare-workers": "0.0.0-experimental-708e229e",
     "@remix-run/react": "0.0.0-experimental-708e229e",
+    "clsx": "^1.1.1",
     "cross-env": "^7.0.3",
     "isbot": "^3.5.0",
     "javascript-time-ago": "^2.5.4",

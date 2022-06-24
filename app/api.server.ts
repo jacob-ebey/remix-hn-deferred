@@ -4,6 +4,7 @@ import en from "javascript-time-ago/locale/en";
 
 TimeAgo.addDefaultLocale(en);
 const timeAgo = new TimeAgo("en-US");
+const cache = (caches as any).default as Cache;
 
 export interface Comment {
   id?: number;
@@ -33,11 +34,34 @@ export interface Item extends IItem {
   timeAgo?: string;
 }
 
+function cachedFetch(request: Request | string) {
+  return cache.match(request).then((response) => {
+    if (response) {
+      return response;
+    }
+    return fetch(request).then(async (response) => {
+      if (!response.ok) {
+        throw new Response(response.statusText, { status: response.status });
+      }
+      const cloned = response.clone();
+      const cacheHeaders = new Headers(cloned.headers);
+      cacheHeaders.append("Cache-Control", "public, max-age=60");
+      const toCache = new Response(cloned.body, {
+        headers: cacheHeaders,
+        status: cloned.status,
+        statusText: cloned.statusText,
+      });
+      await cache.put(request, toCache);
+      return response;
+    });
+  });
+}
+
 export async function getStories(
   category: string,
   page: number | string
 ): Promise<Story[]> {
-  const response = await fetch(
+  const response = await cachedFetch(
     `https://node-hnapi.herokuapp.com/${category}?page=${page}`
   );
   const data = await response.json<Story[]>();
@@ -46,7 +70,7 @@ export async function getStories(
 }
 
 export async function getItem(id: string | number): Promise<Item> {
-  const response = await fetch(
+  const response = await cachedFetch(
     `https://hacker-news.firebaseio.com/v0/item/${id}.json`
   );
   const data = await response.json<Item>();

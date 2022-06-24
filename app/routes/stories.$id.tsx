@@ -5,7 +5,7 @@ import { Deferred, Link, useLoaderData } from "@remix-run/react";
 import type { Item, Comment as CommentType } from "~/api.server";
 import { getItem, getItemComments } from "~/api.server";
 
-import { Comment, CommentEnhancements } from "~/components/comment";
+import { Comment } from "~/components/comment";
 
 type LoaderData = {
   story: Item;
@@ -18,10 +18,17 @@ export const loader: LoaderFunction = async ({ params }) => {
   let itemPromise = getItem(params.id);
   let commentsPromise = getItemComments(params.id);
 
-  return deferred<LoaderData>({
-    story: await itemPromise,
-    comments: commentsPromise,
-  });
+  return deferred<LoaderData>(
+    {
+      story: await itemPromise,
+      comments: commentsPromise,
+    },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=60",
+      },
+    }
+  );
 };
 
 export default function Story() {
@@ -54,7 +61,7 @@ export default function Story() {
                   <Comment key={comment.id!} comment={comment} />
                 ))}
               </ul>
-              <CommentEnhancements />
+              {/* <CommentEnhancements /> */}
             </>
           )}
         </Deferred>

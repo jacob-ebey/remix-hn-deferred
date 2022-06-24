@@ -15,14 +15,19 @@ const Story = (props: { story: StoryType }) => {
             <span className="host"> ({props.story.domain})</span>
           </>
         ) : (
-          <Link to={`/item/${props.story.id}`}>{props.story.title}</Link>
+          <Link to={`/item/${props.story.id}`}>
+            {props.story.title}
+          </Link>
         )}
       </span>
       <br />
       <span className="meta">
         {props.story.type !== "job" ? (
           <>
-            by <Link to={`/users/${props.story.user}`}>{props.story.user}</Link>{" "}
+            by{" "}
+            <Link to={`/users/${props.story.user}`}>
+              {props.story.user}
+            </Link>{" "}
             {props.story.time_ago} |{" "}
             <Link to={`/stories/${props.story.id}`}>
               {props.story.comments_count
@@ -31,7 +36,9 @@ const Story = (props: { story: StoryType }) => {
             </Link>
           </>
         ) : (
-          <Link to={`/stories/${props.story.id}`}>{props.story.time_ago}</Link>
+          <Link to={`/stories/${props.story.id}`}>
+            {props.story.time_ago}
+          </Link>
         )}
       </span>
       {props.story.type !== "link" && (

@@ -44,7 +44,7 @@ a {
   color: #fff;
   font-weight: 400;
 }
-.header a:nth-child(6) {
+.header a:last-child {
   margin-right: 0;
 }
 .header .github {

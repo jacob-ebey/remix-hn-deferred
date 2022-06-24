@@ -26,7 +26,14 @@ export let loader: LoaderFunction = async ({ params, request }) => {
   const type = params.category || "top";
   const stories = await getStories(mapStories[type], page);
 
-  return json({ type, stories, page });
+  return json(
+    { type, stories, page },
+    {
+      headers: {
+        "Cache-Control": "public, max-age=60",
+      },
+    }
+  );
 };
 
 export default function Stories() {

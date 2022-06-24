@@ -4,19 +4,19 @@ function Nav() {
   return (
     <header className="header">
       <nav className="inner">
-        <Link to="/">
+        <Link to="/" prefetch="intent">
           <strong>HN</strong>
         </Link>
-        <Link to="/new">
+        <Link to="/new" prefetch="intent">
           <strong>New</strong>
         </Link>
-        <Link to="/show">
+        <Link to="/show" prefetch="intent">
           <strong>Show</strong>
         </Link>
-        <Link to="/ask">
+        <Link to="/ask" prefetch="intent">
           <strong>Ask</strong>
         </Link>
-        <Link to="/job">
+        <Link to="/job" prefetch="intent">
           <strong>Jobs</strong>
         </Link>
         <a
