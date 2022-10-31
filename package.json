@@ -11,9 +11,9 @@
     "start": "cross-env NODE_ENV=production miniflare ./build/index.js"
   },
   "dependencies": {
-    "@remix-run/cloudflare": "0.0.0-experimental-708e229e",
-    "@remix-run/cloudflare-workers": "0.0.0-experimental-708e229e",
-    "@remix-run/react": "0.0.0-experimental-708e229e",
+    "@remix-run/cloudflare": "0.0.0-experimental-9b7f37c9a",
+    "@remix-run/cloudflare-workers": "0.0.0-experimental-9b7f37c9a",
+    "@remix-run/react": "0.0.0-experimental-9b7f37c9a",
     "clsx": "^1.1.1",
     "cross-env": "^7.0.3",
     "isbot": "^3.5.0",
@@ -23,8 +23,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^3.13.0",
-    "@remix-run/dev": "0.0.0-experimental-708e229e",
-    "@remix-run/eslint-config": "0.0.0-experimental-708e229e",
+    "@remix-run/dev": "0.0.0-experimental-9b7f37c9a",
+    "@remix-run/eslint-config": "0.0.0-experimental-9b7f37c9a",
     "@types/react": "^18.0.14",
     "@types/react-dom": "^18.0.5",
     "eslint": "^8.18.0",

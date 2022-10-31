@@ -1,24 +1,18 @@
-import type { Deferrable, LoaderFunction } from "@remix-run/cloudflare";
-import { deferred } from "@remix-run/cloudflare";
-import { Deferred, Link, useLoaderData } from "@remix-run/react";
+import { Suspense } from "react";
+import { defer, type LoaderArgs } from "@remix-run/cloudflare";
+import { Await, Link, useLoaderData } from "@remix-run/react";
 
-import type { Item, Comment as CommentType } from "~/api.server";
 import { getItem, getItemComments } from "~/api.server";
 
 import { Comment } from "~/components/comment";
 
-type LoaderData = {
-  story: Item;
-  comments: Deferrable<CommentType[]>;
-};
-
-export const loader: LoaderFunction = async ({ params }) => {
+export async function loader({ params }: LoaderArgs) {
   if (!params.id) throw new Response(null, { status: 404 });
 
   let itemPromise = getItem(params.id);
   let commentsPromise = getItemComments(params.id);
 
-  return deferred<LoaderData>(
+  return defer(
     {
       story: await itemPromise,
       comments: commentsPromise,
@@ -29,10 +23,10 @@ export const loader: LoaderFunction = async ({ params }) => {
       },
     }
   );
-};
+}
 
 export default function Story() {
-  let { story, comments } = useLoaderData<LoaderData>();
+  let { story, comments } = useLoaderData<typeof loader>();
 
   return (
     <div className="item-view">
@@ -53,18 +47,20 @@ export default function Story() {
             ? story.descendants + " comments"
             : "No comments yet."}
         </p>
-        <Deferred value={comments}>
-          {(comments) => (
-            <>
-              <ul className="comment-children">
-                {comments.map((comment) => (
-                  <Comment key={comment.id!} comment={comment} />
-                ))}
-              </ul>
-              {/* <CommentEnhancements /> */}
-            </>
-          )}
-        </Deferred>
+        <Suspense>
+          <Await resolve={comments}>
+            {(comments) => (
+              <>
+                <ul className="comment-children">
+                  {comments.map((comment) => (
+                    <Comment key={comment.id!} comment={comment} />
+                  ))}
+                </ul>
+                {/* <CommentEnhancements /> */}
+              </>
+            )}
+          </Await>
+        </Suspense>
       </div>
     </div>
   );

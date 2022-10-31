@@ -44,33 +44,3 @@ export function Comment(props: { comment: CommentType }) {
     </li>
   );
 }
-
-// const js = String.raw;
-// export const CommentEnhancements = () => {
-//   return (
-//     <script
-//       dangerouslySetInnerHTML={{
-//         __html: js`
-//           document.addEventListener("click", (event) => {
-//             let classList = event.target.parentElement.classList;
-//             if (!classList) return;
-
-//             let id = event.target.getAttribute("data-cc");
-//             if (id) {
-//               let el = document.querySelector("[data-cs='" + id + "']");
-//               if (el) el.style.display = "none";
-//               classList.remove("open");
-//               return;
-//             }
-//             id = event.target.getAttribute("data-ce");
-//             if (id) {
-//               let el = document.querySelector("[data-cs='" + id + "']");
-//               if (el) el.style.display = "block";
-//               classList.add("open");
-//             }
-//           })
-//         `,
-//       }}
-//     />
-//   );
-// };
